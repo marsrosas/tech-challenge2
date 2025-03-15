@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Sua string de conexão
+// String de conexão com o MongoDB
 const mongoURI = process.env.MONGO_URI || "mongodb+srv://TechChallenge2:techchallenge2@tech-challenge2.5trst.mongodb.net/?retryWrites=true&w=majority&appName=Tech-challenge2";
 
 // Conectando ao MongoDB
@@ -21,7 +21,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     console.log('Erro ao conectar ao MongoDB:', err);
   });
 
-// Criando o modelo Post diretamente no arquivo server.js
+// Criando o modelo Post 
 const postSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -47,7 +47,7 @@ app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
 
-// Endpoint para listar todos os posts
+// Endpoint GET /posts - Lista de Posts:
 app.get('/posts', async (req, res) => {
   try {
     const posts = await Post.find();
@@ -57,7 +57,7 @@ app.get('/posts', async (req, res) => {
   }
 });
 
-// Endpoint para ler um post específico pelo ID
+// Endpoint GET /posts/:id - Leitura de Posts: 
 app.get('/posts/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -72,7 +72,7 @@ app.get('/posts/:id', async (req, res) => {
   }
 });
 
-// Endpoint para criar um novo post
+// Endpoint POST /posts - Criação de Postagens: 
 app.post('/posts', async (req, res) => {
   const { title, content, author } = req.body;
 
@@ -91,7 +91,7 @@ app.post('/posts', async (req, res) => {
   }
 });
 
-// Endpoint para editar um post
+// Endpoint PUT /posts/:id - Edição de Postagens:
 app.put('/posts/:id', async (req, res) => {
   const { id } = req.params;
   const { title, content, author } = req.body;
@@ -111,7 +111,7 @@ app.put('/posts/:id', async (req, res) => {
   }
 });
 
-// Endpoint para excluir um post
+// Endpoint DELETE /posts/:id - Exclusão de Postagens: 
 app.delete('/posts/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -127,7 +127,7 @@ app.delete('/posts/:id', async (req, res) => {
   }
 });
 
-// Endpoint para buscar posts por palavras-chave
+// Endpoint GET /posts/search - Busca de Posts (Não está funcionando): 
 app.get('/posts/search', async (req, res) => {
     const { query } = req.query;
   
